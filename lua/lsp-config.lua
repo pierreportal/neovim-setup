@@ -1,5 +1,6 @@
 local lspconfig = require("lspconfig")
 local null_ls = require("null-ls")
+require('vgit').setup()
 
 local buf_map = function(bufnr, mode, lhs, rhs, opts)
     vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {

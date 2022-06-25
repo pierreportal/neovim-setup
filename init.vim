@@ -1,15 +1,16 @@
 :set autoindent
-:set number
-:set smarttab
-:set mouse=a
 :set softtabstop=4
-:set tabstop=4
-:set encoding=UTF-8
 :set shiftwidth=4
-
+:set mouse=a
+:set tabstop=4
+:set smarttab
+:set encoding=UTF-8
+:set number
+" :au CursorHold * :exec 'match Search /\V\<' . expand('<cword>') . '\>/'
 
 "PLUGINS: ------------------------------------------------------------------------------------
 call plug#begin()
+Plug 'http://github.com/lfv89/vim-interestingwords'
 Plug 'http://github.com/rafi/awesome-vim-colorschemes'
 Plug 'http://github.com/ryanoasis/vim-devicons'
 Plug 'http://github.com/tc50cal/vim-terminal'
@@ -46,15 +47,19 @@ Plug 'http://github.com/folke/which-key.nvim'
 Plug 'http://github.com/kyazdani42/nvim-web-devicons'
 Plug 'http://github.com/romgrk/barbar.nvim'
 Plug 'http://github.com/folke/todo-comments.nvim'
+Plug 'http://github.com/nvim-telescope/telescope-media-files.nvim'
 Plug 'http://github.com/sindrets/diffview.nvim'
 Plug 'http://github.com/nvim-lua/popup.nvim'
-Plug 'http://github.com/nvim-telescope/telescope-media-files.nvim'
 Plug 'http://github.com/anuvyklack/nvim-keymap-amend'
 Plug 'http://github.com/anuvyklack/pretty-fold.nvim'
 Plug 'http://github.com/kyazdani42/nvim-web-devicons'
 Plug 'http://github.com/folke/trouble.nvim'
 Plug 'http://github.com/matze/vim-move'
 Plug 'http://github.com/mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'http://github.com/rbgrouleff/bclose.vim'
+Plug 'http://github.com/francoiscabrol/ranger.vim'
+Plug 'http://github.com/mattn/emmet-vim'
+Plug 'http://github.com/tanvirtin/vgit.nvim'
 
 if has('nvim')
   function! UpdateRemotePlugins(...)
@@ -83,24 +88,36 @@ lua require("lsp-config")
 :colorscheme tokyonight
 
 "KEYMAPS: ------------------------------------------------------------------------------------
+"
 "V ~> select full current line
 "$ ~> Go to end of line ?
 "G ~> Go to end of file
 "C ~> Cut rest of line after cursor
 "gf ~> Open file linked at cursor
-"NERDTree
+"
+"Navigation:
 nnoremap <C-f> :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
-"Telescope
 nnoremap <leader>f <cmd>Telescope find_files<CR>
-"Comments
+nnoremap <leader>r <cmd>Ranger<CR>
+"
+"Comments:
 nnoremap <C-_> :Commentary<CR>
-"Move lines
+vnoremap <C-_> :'<,'>Commentary<CR>
+"
+"Moving_lines:
 nnoremap <A-Up> :m -2<CR>
 nnoremap <A-Down> :m +1<CR>
-vmap <A-Down> :'<,'>m +`<<CR>
-"Tabs
+vnoremap <A-Down> :m +1<CR>gv
+vnoremap <A-Up> :m -2<CR>gv
+inoremap <A-Up> <Esc>:m -2<CR>
+inoremap <A-Down> <Esc>:m +1<CR>
+vnoremap < <gv
+vmap <Tab> >gv
+vmap > >gv
+"
+"Tabs:
 nnoremap tn :tabnew<CR>
 nnoremap tc :BufferClose<CR>
 nnoremap t] :BufferNext<CR>
@@ -112,20 +129,46 @@ nnoremap t4 :BufferGoto 4<CR>
 nnoremap t5 :BufferGoto 5<CR>
 nnoremap t6 :BufferGoto 6<CR>
 "
-"
+"Moving_fast:
 nnoremap <A-Right> w
 nnoremap <A-Left> b
-nnoremap <C-Up> h
+nnoremap w 3k
+nnoremap s 3j
+nnoremap W 10k
+nnoremap S 10j
+"
+"Selection:
 nnoremap V viw
 vmap V V 
 "
-"
+"Inspect:
 nmap <C-b> :TagbarToggle<CR>
+nnoremap fo gf
+"
+"Edit:
+map <C-z> u
+"
+"Git: 
+nnoremap gl :VGit project_logs_preview<CR>
+nnoremap gd :VGit buffer_hunk_preview<CR>
 ":set completeopt-=preview " For No Previews
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
+let g:ranger_map_keys = 0
 
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
+
 call wilder#setup({'modes': [':', '/', '?']})
+call wilder#set_option('renderer', wilder#popupmenu_renderer(wilder#popupmenu_palette_theme({
+      \ 'border': 'rounded',
+      \ 'max_height': '75%',
+      \ 'min_height': 0,
+      \ 'prompt_position': 'top',
+      \ 'reverse': 0,
+      \ 'highlighter': wilder#basic_highlighter(),
+      \ 'highlights': {
+      \   'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
+      \ },
+      \ })))
