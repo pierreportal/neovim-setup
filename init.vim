@@ -1,25 +1,24 @@
-:set number
 :set autoindent
-:set tabstop=4
-:set shiftwidth=4
+:set number
 :set smarttab
-:set softtabstop=4
 :set mouse=a
+:set softtabstop=4
+:set tabstop=4
 :set encoding=UTF-8
+:set shiftwidth=4
 
+
+"PLUGINS: ------------------------------------------------------------------------------------
 call plug#begin()
-
-#TODO: zdcx
-
-Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
-Plug 'http://github.com/vim-airline/vim-airline'
-Plug 'http://github.com/preservim/nerdtree'
-Plug 'http://github.com/tpope/vim-commentary'
-Plug 'http://github.com/vim-airline/vim-airline'
-Plug 'http://github.com/ap/vim-css-color'
 Plug 'http://github.com/rafi/awesome-vim-colorschemes'
 Plug 'http://github.com/ryanoasis/vim-devicons'
 Plug 'http://github.com/tc50cal/vim-terminal'
+Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
+Plug 'http://github.com/vim-airline/vim-airline'
+Plug 'http://github.com/preservim/nerdtree'  
+Plug 'http://github.com/tpope/vim-commentary'
+Plug 'http://github.com/vim-airline/vim-airline'
+Plug 'http://github.com/ap/vim-css-color'    
 Plug 'http://github.com/terryma/vim-multiple-cursors'
 Plug 'http://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'http://github.com/neoclide/coc.nvim'  " Auto Completion
@@ -37,64 +36,71 @@ Plug 'http://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'http://github.com/dyng/ctrlsf.vim'
 Plug 'http://github.com/neovim/nvim-lspconfig'
 Plug 'http://github.com/SmiteshP/nvim-navic'
-# TODO: fix: experiment ~ not working....
+"TOFIX: fix: experiment ~ not working....
+Plug 'http://github.com/jose-elias-alvarez/null-ls.nvim'
+Plug 'http://github.com/jose-elias-alvarez/nvim-lsp-ts-utils'
+Plug 'http://github.com/startup-nvim/startup.nvim'
+Plug 'http://github.com/nvim-neorg/neorg'
 Plug 'http://github.com/LinArcX/telescope-command-palette.nvim'
 Plug 'http://github.com/folke/which-key.nvim'
 Plug 'http://github.com/kyazdani42/nvim-web-devicons'
 Plug 'http://github.com/romgrk/barbar.nvim'
 Plug 'http://github.com/folke/todo-comments.nvim'
 Plug 'http://github.com/sindrets/diffview.nvim'
-lua << EOF
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-EOF
+Plug 'http://github.com/nvim-lua/popup.nvim'
+Plug 'http://github.com/nvim-telescope/telescope-media-files.nvim'
+Plug 'http://github.com/anuvyklack/nvim-keymap-amend'
+Plug 'http://github.com/anuvyklack/pretty-fold.nvim'
 Plug 'http://github.com/kyazdani42/nvim-web-devicons'
 Plug 'http://github.com/folke/trouble.nvim'
+Plug 'http://github.com/matze/vim-move'
+Plug 'http://github.com/mg979/vim-visual-multi', {'branch': 'master'}
 
-lua << EOF
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-EOF
 if has('nvim')
   function! UpdateRemotePlugins(...)
-    " Needed to refresh runtime files
     let &rtp=&rtp
     UpdateRemotePlugins
   endfunction
-
   Plug 'http://github.com/gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 else
   Plug 'http://github.com/gelguy/wilder.nvim'
-
-  " To use Python remote plugin features in Vim, can be skipped
-  Plug 'http://github.com/roxma/nvim-yarp'
   Plug 'http://github.com/roxma/vim-hug-neovim-rpc'
+  Plug 'http://github.com/roxma/nvim-yarp'
 endif
-# TODO: end of experiment.
-
-
+"ENDTOFIX: end of experiment.
 
 let g:coc_global_extensions = [
   \ 'coc-tsserver'
   \ ]
 
 call plug#end()
+"END PLUGINS: ------------------------------------------------------------------------------------
+"
+"CONFIG: Load lua config
 
-# NERDTree
+lua require("lsp-config")
+
+:colorscheme tokyonight
+
+"KEYMAPS: ------------------------------------------------------------------------------------
+"V ~> select full current line
+"$ ~> Go to end of line ?
+"G ~> Go to end of file
+"C ~> Cut rest of line after cursor
+"gf ~> Open file linked at cursor
+"NERDTree
 nnoremap <C-f> :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
-# Telescope
+"Telescope
 nnoremap <leader>f <cmd>Telescope find_files<CR>
-
-# Tabs
-# nnoremap tn :tabnew<CR>
-# nnoremap tc :tabclose<CR>
-# nnoremap t] :tabNext<CR>
-# nnoremap t[ :tabprevious<CR>
-# nnoremap ts :tabs<CR>
+"Comments
+nnoremap <C-_> :Commentary<CR>
+"Move lines
+nnoremap <A-Up> :m -2<CR>
+nnoremap <A-Down> :m +1<CR>
+vmap <A-Down> :'<,'>m +`<<CR>
+"Tabs
 nnoremap tn :tabnew<CR>
 nnoremap tc :BufferClose<CR>
 nnoremap t] :BufferNext<CR>
@@ -105,23 +111,21 @@ nnoremap t3 :BufferGoto 3<CR>
 nnoremap t4 :BufferGoto 4<CR>
 nnoremap t5 :BufferGoto 5<CR>
 nnoremap t6 :BufferGoto 6<CR>
-
-vnoremap <C-c> "*y
-
+"
+"
+nnoremap <A-Right> w
+nnoremap <A-Left> b
+nnoremap <C-Up> h
+nnoremap V viw
+vmap V V 
+"
+"
 nmap <C-b> :TagbarToggle<CR>
-
-#:set completeopt-=preview " For No Previews
-
-:colorscheme tokyonight
-
+":set completeopt-=preview " For No Previews
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
 
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
-
-
-# nnoremap <C-a> :tabPrevious<CR>
-# nnoremap <C-d> :tabNext<CR>
 
 call wilder#setup({'modes': [':', '/', '?']})
