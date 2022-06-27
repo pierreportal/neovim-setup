@@ -7,7 +7,6 @@
 :set encoding=UTF-8
 :set number
 " :au CursorHold * :exec 'match Search /\V\<' . expand('<cword>') . '\>/'
-
 "PLUGINS: ------------------------------------------------------------------------------------
 call plug#begin()
 Plug 'http://github.com/lfv89/vim-interestingwords'
@@ -37,7 +36,7 @@ Plug 'http://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'http://github.com/dyng/ctrlsf.vim'
 Plug 'http://github.com/neovim/nvim-lspconfig'
 Plug 'http://github.com/SmiteshP/nvim-navic'
-"TOFIX: fix: experiment ~ not working....
+"TO CLEAN: fix: experiment ~ not working....
 Plug 'http://github.com/jose-elias-alvarez/null-ls.nvim'
 Plug 'http://github.com/jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'http://github.com/startup-nvim/startup.nvim'
@@ -60,6 +59,7 @@ Plug 'http://github.com/rbgrouleff/bclose.vim'
 Plug 'http://github.com/francoiscabrol/ranger.vim'
 Plug 'http://github.com/mattn/emmet-vim'
 Plug 'http://github.com/tanvirtin/vgit.nvim'
+Plug 'http://github.com/sindrets/diffview.nvim'
 
 if has('nvim')
   function! UpdateRemotePlugins(...)
@@ -130,8 +130,10 @@ nnoremap t5 :BufferGoto 5<CR>
 nnoremap t6 :BufferGoto 6<CR>
 "
 "Moving_fast:
-nnoremap <A-Right> w
+nnoremap <A-Right> e
 nnoremap <A-Left> b
+inoremap <A-Right> <Esc>e
+inoremap <A-Left> <Esc>b
 nnoremap w 3k
 nnoremap s 3j
 nnoremap W 10k
@@ -151,7 +153,9 @@ map <C-z> u
 "Git: 
 nnoremap gl :VGit project_logs_preview<CR>
 nnoremap gd :VGit buffer_hunk_preview<CR>
-":set completeopt-=preview " For No Previews
+nnoremap diff :DiffviewOpen<CR>
+nnoremap edit :DiffviewClose<CR>
+:set completeopt-=preview " For No Previews
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
 let g:ranger_map_keys = 0
@@ -159,16 +163,16 @@ let g:ranger_map_keys = 0
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
-
-call wilder#setup({'modes': [':', '/', '?']})
+call wilder#setup({'modes': [':',  '?']})
 call wilder#set_option('renderer', wilder#popupmenu_renderer(wilder#popupmenu_palette_theme({
-      \ 'border': 'rounded',
-      \ 'max_height': '75%',
-      \ 'min_height': 0,
-      \ 'prompt_position': 'top',
-      \ 'reverse': 0,
-      \ 'highlighter': wilder#basic_highlighter(),
-      \ 'highlights': {
-      \   'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
-      \ },
-      \ })))
+		\ 'pumblend':20,
+		\ 'border': 'rounded',
+		\ 'max_height': '75%',
+		\ 'min_height': 0,
+		\ 'prompt_position': 'bottom',
+		\ 'reverse': 0,
+		\ 'highlighter': wilder#basic_highlighter(),
+		\ 'highlights': {
+		\   'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
+		\ },
+	\ })))
