@@ -1,6 +1,6 @@
 
 call plug#begin()
-Plug 'http://github.com/lfv89/vim-interestingwords'
+" Plug 'http://github.com/lfv89/vim-interestingwords'
 Plug 'http://github.com/rafi/awesome-vim-colorschemes'
 Plug 'http://github.com/ryanoasis/vim-devicons'
 Plug 'http://github.com/tc50cal/vim-terminal'
@@ -26,7 +26,6 @@ Plug 'http://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'http://github.com/dyng/ctrlsf.vim'
 Plug 'http://github.com/neovim/nvim-lspconfig'
 Plug 'http://github.com/SmiteshP/nvim-navic'
-"TO CLEAN: fix: experiment ~ not working....
 Plug 'http://github.com/jose-elias-alvarez/null-ls.nvim'
 Plug 'http://github.com/jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'http://github.com/startup-nvim/startup.nvim'
@@ -50,10 +49,12 @@ Plug 'http://github.com/mattn/emmet-vim'
 Plug 'http://github.com/tanvirtin/vgit.nvim'
 Plug 'http://github.com/sindrets/diffview.nvim'
 Plug 'http://guthub.com/prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
-Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+Plug 'http://github.com/kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'http://guthub.com/kyazdani42/nvim-tree.lua'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'https://github.com/shaunsingh/nord.nvim'
 Plug 'https://github.com/wfxr/minimap.vim'
+Plug 'https://github.com/windwp/nvim-autopairs'
 if has('nvim')
   function! UpdateRemotePlugins(...)
     let &rtp=&rtp
