@@ -33,7 +33,7 @@ Plug 'http://github.com/nvim-neorg/neorg'
 Plug 'http://github.com/LinArcX/telescope-command-palette.nvim'
 Plug 'http://github.com/folke/which-key.nvim'
 Plug 'http://github.com/kyazdani42/nvim-web-devicons'
-Plug 'http://github.com/romgrk/barbar.nvim'
+" Plug 'http://github.com/romgrk/barbar.nvim'
 Plug 'http://github.com/folke/todo-comments.nvim'
 Plug 'http://github.com/nvim-telescope/telescope-media-files.nvim'
 Plug 'http://github.com/sindrets/diffview.nvim'
@@ -55,6 +55,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'https://github.com/shaunsingh/nord.nvim'
 Plug 'https://github.com/wfxr/minimap.vim'
 Plug 'https://github.com/windwp/nvim-autopairs'
+Plug 'https://github.com/bagrat/vim-buffet'
 if has('nvim')
   function! UpdateRemotePlugins(...)
     let &rtp=&rtp
