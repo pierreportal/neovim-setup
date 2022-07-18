@@ -4,13 +4,15 @@
 "$ ~> Go to end of line ?
 "G ~> Go to end of file
 "C ~> Cut rest of line after cursor
-"gf ~> Open file linked at cursor
 "
 "Navigation:
 nnoremap <C-f> :NvimTreeFocus<CR>
 nnoremap <C-n> :NvimTreeOpen<CR>
 nnoremap <C-p> :NvimTreeToggle<CR>
-nnoremap <leader>f <cmd>Telescope find_files<CR>
+nnoremap <leader>f :lua require"telescope.builtin".find_files()<CR>
+nnoremap <leader>s :lua require"telescope.builtin".live_grep()<CR>
+nnoremap <leader>q :lua require"telescope.builtin".spell_suggest()<CR>
+nnoremap <leader>c :lua require"telescope.builtin".git_commits()<CR>
 "
 "Comments:
 nnoremap <C-_> :Commentary<CR>
@@ -29,11 +31,9 @@ vmap > >gv
 vnoremap <C-Right> $
 "
 "Tabs:
-nnoremap tn :tabnew<CR>
-nnoremap tc :Bclose<CR>
-nnoremap t] :BufferNext<CR>
-nnoremap t[ :BufferPrevious<CR>
-
+nnoremap <leader>d :bn<CR>
+nnoremap <leader>a :bp<CR>
+nnoremap <leader>c :Bw<CR>
 nmap <leader>1 <Plug>BuffetSwitch(1)
 nmap <leader>2 <Plug>BuffetSwitch(2)
 nmap <leader>3 <Plug>BuffetSwitch(3)

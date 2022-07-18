@@ -1,7 +1,6 @@
 local lspconfig = require("lspconfig")
 local null_ls = require("null-ls")
 require('vgit').setup()
-
 local buf_map = function(bufnr, mode, lhs, rhs, opts)
     vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
         silent = true,
@@ -17,11 +16,11 @@ lspconfig.tsserver.setup({
         buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
         buf_map(bufnr, "n", "gi", ":TSLspRenameFile<CR>")
         buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")
-        -- on_attach(client, bufnr)
+        on_attach(client, bufnr)
     end,
 })
 
--- local null_ls = require("null-ls")
+local null_ls = require("null-ls")
 null_ls.setup({
     sources = {
         null_ls.builtins.diagnostics.eslint,

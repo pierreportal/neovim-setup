@@ -9,6 +9,7 @@
 :set incsearch
 
 :set cursorline
+
 " autocmd CursorMoved * exe printf('match lCursor /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 hi Cursor guifg=#121212 guibg=#afd700
 hi CursorLine   cterm=NONE ctermbg=NONE ctermfg=green
