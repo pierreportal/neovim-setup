@@ -76,7 +76,7 @@ map <C-z> u
 "Git: 
 nnoremap gl :VGit project_logs_preview<CR>
 nnoremap gd :VGit buffer_hunk_preview<CR>
-nnoremap diff :DiffviewOpen<CR>
-nnoremap edit :DiffviewClose<CR>
+nmap diff :DiffviewOpen<CR>
+nmap edit :DiffviewClose<CR>
 
 source ~/.config/nvim/user.config/chuck.conf.vim 
